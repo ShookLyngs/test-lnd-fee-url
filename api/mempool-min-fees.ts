@@ -13,9 +13,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   return res.json({
     "current_block_hash": tipHash,
     "fee_by_block_target": {
-      "2": fees.fastestFee,
-      "3": fees.halfHourFee,
-      "6": fees.hourFee,
+      "3": fees.minimumFee,
+      "6": fees.minimumFee,
       "10": fees.minimumFee,
     },
     "min_relay_feerate": fees.minimumFee,
