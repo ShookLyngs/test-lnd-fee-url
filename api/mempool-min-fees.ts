@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { setupMempool } from './_mempool';
+import { setupMempool } from './_mempool.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { mempool } = setupMempool(req);
