@@ -23,8 +23,8 @@ export function setupMempool(req: VercelRequest) {
 
 /**
  * Transform mempool fee from sat/vb to sat/kvb.
- * Just a simple conversion of target fee times 1000.
+ * Note that the minimum fee is 1011 sat/kvb, as of 253 sat/kw is required by the lightning network.
  */
 export function fromMempoolFee(mempoolFee: number): number {
-  return Math.min(mempoolFee * 1000, 1011);
+  return Math.max(mempoolFee * 1000, 1011);
 }
