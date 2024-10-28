@@ -9,6 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
   },
+  "include": ["api"],
   "ts-node": {
     "esm": true
   }
