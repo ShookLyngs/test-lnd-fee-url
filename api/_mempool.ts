@@ -20,3 +20,11 @@ export function setupMempool(req: VercelRequest) {
     mempool,
   };
 }
+
+/**
+ * Transform mempool fee from sat/vb to sat/kvb.
+ * Just a simple conversion of target fee times 1000.
+ */
+export function fromMempoolFee(mempoolFee: number): number {
+  return Math.min(mempoolFee * 1000, 1011);
+}

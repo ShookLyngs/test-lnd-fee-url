@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { setupMempool } from './_mempool.js';
+import { fromMempoolFee, setupMempool } from './_mempool.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { mempool } = setupMempool(req);
@@ -13,11 +13,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   return res.json({
     "current_block_hash": tipHash,
     "fee_by_block_target": {
-      "2": fees.fastestFee,
-      "3": fees.halfHourFee,
-      "6": fees.hourFee,
-      "10": fees.minimumFee,
+      "2": fromMempoolFee(fees.fastestFee),
+      "3": fromMempoolFee(fees.halfHourFee),
+      "6": fromMempoolFee(fees.hourFee),
+      "10": fromMempoolFee(fees.minimumFee),
     },
-    "min_relay_feerate": fees.minimumFee,
+    "min_relay_feerate": fromMempoolFee(fees.minimumFee),
   });
 }
