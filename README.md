@@ -1,6 +1,6 @@
-# Test LND `fee.url`
+# Test: `fee.url` option in LND
 
-A serverless functions project for testing the `fee.url` configuration in LND.  
+A serverless function project for testing the `fee.url` option in LND.  
 The functions are deployed on `Vercel`: https://test-lnd-fee-url.vercel.app.
 
 ## APIs
@@ -12,3 +12,12 @@ The functions are deployed on `Vercel`: https://test-lnd-fee-url.vercel.app.
 - `/api/mempool-min-fees`: Mapping fee rates from mempool.space to LND acceptable fee rates, but all fees are equal the `minimumFee`, including the `min_relay_feerate`.
 
 - `/api/static-min-fees`: All fee rates are fixed to `1012`.
+
+## Apply fees
+
+To apply the `fee.url` option in LND, you can edit your `lnd.conf` file and add the following line, then restart your LND node, the option should be applied in a random timeout:
+
+```conf
+fee.url=https://test-lnd-fee-url.vercel.app/api/mempool-fees
+```
+
