@@ -21,3 +21,8 @@ To apply the `fee.url` option in LND, you can edit your `lnd.conf` file and add 
 fee.url=https://test-lnd-fee-url.vercel.app/api/mempool-fees
 ```
 
+## Self-hosting
+
+The project is open-source, and you can self-host it as serverless functions.
+
+Or you can clone the project and deploy it on `Vercel`.
