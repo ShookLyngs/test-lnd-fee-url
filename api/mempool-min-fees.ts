@@ -15,8 +15,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     "current_block_hash": tipHash,
     "fee_by_block_target": {
       "3": minimumFee,
-      "6": minimumFee,
-      "10": minimumFee,
     },
     "min_relay_feerate": minimumFee,
   });

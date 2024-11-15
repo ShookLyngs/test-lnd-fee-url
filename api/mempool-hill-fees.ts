@@ -3,13 +3,13 @@ import { fromMempoolFee, fromRecommendedFees, setupMempool } from './_mempool.js
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { mempool } = setupMempool(req);
-  const [fees, tipHash] = await Promise.all([
+  const [mempoolFees, tipHash] = await Promise.all([
     mempool.bitcoin.fees.getFeesRecommended(),
     mempool.bitcoin.blocks.getBlocksTipHash(),
   ]);
 
-  const fullFees = fromRecommendedFees(fees);
-  console.log(`tip-hash: ${tipHash}, fees: ${JSON.stringify(fullFees)}`);
+  const fees = fromRecommendedFees(mempoolFees);
+  console.log(`tip-hash: ${tipHash}, fees: ${JSON.stringify(fees)}`);
 
   return res.json({
     "current_block_hash": tipHash,
@@ -18,7 +18,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       "4": fromMempoolFee(fees.fastestFee),
       "6": fromMempoolFee(fees.halfHourFee),
       "8": fromMempoolFee(fees.hourFee),
-      "10": fromMempoolFee(fullFees.economyFee),
+      "10": fromMempoolFee(fees.economyFee),
     },
     "min_relay_feerate": 1012
   });
