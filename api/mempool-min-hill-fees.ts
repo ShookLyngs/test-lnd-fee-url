@@ -11,16 +11,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const fees = fromRecommendedFees(mempoolFees);
   console.log(`tip-hash: ${tipHash}, fees: ${JSON.stringify(fees)}`);
 
-  const minimumFee = fromMempoolFee(fees.minimumFee);
   return res.json({
     "current_block_hash": tipHash,
     "fee_by_block_target": {
-      "3": minimumFee,
+      "3": fromMempoolFee(fees.economyFee),
       "4": fromMempoolFee(fees.fastestFee),
       "6": fromMempoolFee(fees.halfHourFee),
       "8": fromMempoolFee(fees.hourFee),
       "10": fromMempoolFee(fees.economyFee),
     },
-    "min_relay_feerate": minimumFee,
+    "min_relay_feerate": fromMempoolFee(fees.minimumFee),
   });
 }
