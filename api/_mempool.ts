@@ -1,6 +1,11 @@
+import type { FeesRecommended } from '@cell-studio/mempool.js/lib/interfaces/bitcoin/fees';
 import type { VercelRequest } from '@vercel/node';
 import MempoolJS from '@cell-studio/mempool.js';
 import { z } from 'zod';
+
+export interface FeesRecommendedWithEcoFee extends FeesRecommended {
+  economyFee: number;
+}
 
 const MempoolProps = z.object({
   url: z.string().default('https://cell.mempool.space'),
@@ -17,6 +22,7 @@ export function setupMempool(req: VercelRequest) {
   });
 
   return {
+    query,
     mempool,
   };
 }
@@ -27,4 +33,19 @@ export function setupMempool(req: VercelRequest) {
  */
 export function fromMempoolFee(mempoolFee: number): number {
   return Math.max(mempoolFee * 1000, 1011);
+}
+
+/**
+ * Make sure "economyFee" is present in the FeesRecommended object.
+ * If not, calculate it as 2x the minimumFee.
+ */
+export function fromRecommendedFees(fees: FeesRecommended): FeesRecommendedWithEcoFee {
+  if ('economyFee' in fees) {
+    return fees as FeesRecommendedWithEcoFee;
+  } else {
+    return {
+      ...fees,
+      economyFee: Math.min(fees.minimumFee * 2, fees.hourFee),
+    };
+  }
 }
