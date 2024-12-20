@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { toMsatPerVb, MempoolService } from '../lib/mempool.js';
+import { returnError } from '../lib/error.js';
 import { z } from 'zod';
 
 const CustomHillFeesProps = z.object({
@@ -32,12 +33,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       "min_relay_feerate": toMsatPerVb(Math.min(fees.minimumFee, maxCommitFeeRate)),
     });
   } catch (e: any) {
-    res.status(500).send({
-      error: {
-        code: e?.code ?? e.status ?? null,
-        message: e?.message ?? 'internal server error',
-      },
-    });
-    throw e;
+    returnError(res, e);
   }
 }
