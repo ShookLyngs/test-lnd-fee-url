@@ -6,8 +6,8 @@ export function returnError(res: VercelResponse, e: any) {
     const firstError = e.errors[0];
     res.status(400).send({
       error: {
-        code: 400,
-        message: `${firstError.message} (${firstError.code})`,
+        code: firstError.code ?? 400,
+        message: `(${firstError.path.join('.')}): ${firstError.message}`,
       },
     });
   } else {
