@@ -13,7 +13,7 @@ The functions are deployed on `Vercel`: https://test-lnd-fee-url.vercel.app.
   - `min_relay_feerate`: `minimumFee`
 
 - `/api/mempool-hill-fees`: Mapping fee rates from mempool API, it aims to lower the commit_fee as low as possible, regardless of the actual mempool fee rates, when force-close happens, the participant can bump the transaction with a CPFP transaction:
-- `fee_by_block_target[3]`: `1012`
+  - `fee_by_block_target[3]`: `1012`
   - `fee_by_block_target[4]`: `fastestFee`
   - `fee_by_block_target[6]`: `halfHourFee`
   - `fee_by_block_target[8]`: `hourFee`
