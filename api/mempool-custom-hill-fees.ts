@@ -10,6 +10,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const props = CustomHillFeesProps.parse(req.query);
     const maxCommitFeeRate = props.maxCommitFeeRate ?? Number.MAX_VALUE;
+    console.log(`max-commit-fee-rate: ${maxCommitFeeRate}`);
 
     const mempool = MempoolService.fromRequest(req);
     const [fees, tipHash] = await Promise.all([
