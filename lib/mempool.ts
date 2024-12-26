@@ -9,7 +9,7 @@ export interface RecommendedFees extends FeesRecommended {
 }
 
 const MempoolProps = z.object({
-  url: z.string().default('https://cell.mempool.space'),
+  url: z.string().default('https://mempool.space'),
   network: z.enum(['mainnet', 'testnet', 'signet', 'testnet4']).default('testnet'),
 });
 
